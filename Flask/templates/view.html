@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}View All Users{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/view_styles.css') }}">
+
+<h2 class="text-center">All Registered Users</h2>
+
+<div class="list-container">
+    <div class="list-group">
+        {% for item in values %}
+        <div class="list-item d-flex justify-content-between">
+            <a class="list-group-item list-group-item-action">
+                Name: {{ item.name }}, Email: {{ item.email }}
+            </a>
+            
+            <!-- Delete Button -->
+            <form method="POST" action="{{ url_for('delete_user', user_id=item._id) }}" style="display:inline;">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Back to Admin button -->
+<div class="back-button">
+    <a href="{{ url_for('admin') }}" class="btn btn-primary">Go Back</a>
+</div>
+
+
+
+<script>
+    function confirmDelete(username, userId) {
+        // Set the username in the modal
+        document.getElementById("usernameToDelete").innerText = username;
+        
+        // Set the action of the form to the correct delete URL
+        document.getElementById("deleteForm").action = "/delete_user/" + userId;
+        
+        // Show the modal
+        var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        deleteModal.show();
+    }
+</script>
+
+{% endblock %}

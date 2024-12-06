@@ -1,0 +1,111 @@
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f5f5dc, #e2c9a0); /* Beige gradient */
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-login-container {
+    max-width: 400px;
+    width: 100%;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.admin-login-container h2 {
+    margin-bottom: 20px;
+    color: #333333;
+    font-weight: bold;
+}
+
+.admin-login-container label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    color: #333333;
+    font-weight: bold;
+}
+
+.admin-login-container input[type="text"],
+.admin-login-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.admin-login-container input[type="text"]:focus,
+.admin-login-container input[type="password"]:focus {
+    border-color: #0080ff;
+    outline: none;
+}
+
+.admin-login-container .btn-primary {
+    background-color: #0080ff;
+    border-color: #0080ff;
+    color: #fff;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.admin-login-container .btn-primary:hover,
+.admin-login-container .btn-primary:focus,
+.admin-login-container .btn-primary:active {
+    background-color: #006bb3;
+    border-color: #006bb3;
+    color: #fff !important;
+}
+
+.admin-login-container .btn-secondary {
+    background-color: #ff9800;
+    border-color: #ff9800;
+    color: #fff;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.admin-login-container .btn-secondary:hover {
+    background-color: #e68900;
+    border-color: #e68900;
+    color: #fff;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .admin-login-container {
+        width: 90%;
+        padding: 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .admin-login-container {
+        width: 95%;
+        padding: 15px;
+    }
+}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Admin Panel{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/admin_styles.css') }}">
+
+<!-- Arrow button to toggle side navigation bar -->
+<button class="toggle-btn" id="toggleBtn"></button>
+
+<!-- Side Navigation Bar -->
+<div class="side-nav" id="sideNav">
+    <div class="side-nav-header">
+        <img src="{{ url_for('static', filename='flaskbook-admin-logo.png') }}" alt="Admin Logo" class="side-nav-logo">
+    </div>
+    <div class="side-nav-divider"></div>
+    <div class="side-nav-buttons">
+        <a href="#" class="side-nav-button">User</a>
+        <a href="{{ url_for('view') }}" class="side-nav-button">Registered Users</a>
+        <a href="{{ url_for('logout') }}" class="side-nav-button">Log Out</a>
+    </div>
+</div>
+
+<!-- Main Content Area -->
+<div class="main-content" id="mainContent">
+    <h1 class="admin-welcome-heading">Welcome, marc2250</h1>
+    <p class="admin-motivational-message">
+        Hello, I'm glad you're here with us. Remember that this project is for your subject, 'Systems Integration & Architecture'. Coding may seem hard at first, but the more you practice, the more you'll enjoy it. I know life’s been tough, but you are almost done with school. Keep up the good work and make the most of your remaining years. This message is just a motivational note for you. By the time the teacher asks us to work on something more connected to this Flask project, this message will be gone. Good luck on your journey!
+    </p>
+</div>
+
+{% endblock %}

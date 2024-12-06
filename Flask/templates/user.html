@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}User{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/user_styles.css') }}">
+<p class="text-center welcome-message">Welcome, {{ user }}</p>
+
+<div class="container">
+    <div class="friendship-form">
+        <h3>Friendship Database</h3>
+        <form action="{{ url_for('add_friend') }}" method="POST">
+            <label for="friend_name">Name:</label>
+            <input type="text" id="friend_name" name="friend_name" required>
+
+            <label for="friend_gender">Gender:</label>
+            <select id="friend_gender" name="friend_gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="friend_description">Description:</label>
+            <textarea id="friend_description" name="friend_description" required></textarea>
+
+            <button type="submit">Add Friend</button>
+        </form>
+    </div>
+
+    <div class="friendship-table">
+        <h3>Friend List</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for friend in friends.items %}
+                    <tr>
+                        <td>{{ friend.name }}</td>
+                        <td>{{ friend.gender }}</td>
+                        <td>{{ friend.description }}</td>
+                        <td>
+                            <form action="{{ url_for('delete_friend', friend_id=friend.id) }}" method="POST">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination Centered -->
+        <div class="pagination-wrapper">
+            <div class="pagination">
+                {% if friends.has_prev %}
+                    <a href="{{ url_for('user', page=friends.prev_num) }}">Previous</a>
+                {% endif %}
+
+                {% for page_num in friends.iter_pages(left_edge=2, right_edge=2, left_current=2, right_current=2) %}
+                    {% if page_num %}
+                        {% if page_num == friends.page %}
+                            <span class="current-page">{{ page_num }}</span>
+                        {% else %}
+                            <a href="{{ url_for('user', page=page_num) }}">{{ page_num }}</a>
+                        {% endif %}
+                    {% else %}
+                        <span class="ellipsis">...</span>
+                    {% endif %}
+                {% endfor %}
+
+                {% if friends.has_next %}
+                    <a href="{{ url_for('user', page=friends.next_num) }}">Next</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

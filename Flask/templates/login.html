@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Login Page{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/register_styles.css') }}">
+<div class="register-container">
+    <h2>Login</h2>
+    <form method="POST">
+        <label for="username">Name:</label>
+        <input type="text" name="nm" id="username" placeholder="Enter your name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" placeholder="Enter your email" required>
+
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <a href="{{ url_for('home') }}" class="btn btn-secondary">Back to Home</a>
+</div>
+{% endblock %}

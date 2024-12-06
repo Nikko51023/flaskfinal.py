@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/styles.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body class="{% if request.endpoint in ['home', 'register', 'login', 'admin_login', 'admin', 'view'] %}no-navbar{% endif %}">
+
+    <nav class="navbar navbar-expand-lg" style="background-color: #7a9a92; padding: 20px 0;">
+       
+        <a class="navbar-brand" style="padding-left: 30px;">
+            <img src="{{ url_for('static', filename='nav-flaskbook-logo.png') }}" alt="Flaskbook Logo" style="height: 40px;">
+        </a>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+            
+                <li class="nav-item" style="margin-right: 30px;">
+                    <a class="btn btn-warning" href="{{ url_for('logout') }}" role="button" 
+                       style="font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: all 0.3s ease-in-out;">
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const flashMessages = document.getElementById("flash-messages");
+            if (flashMessages) {
+                setTimeout(() => {
+                    flashMessages.classList.add("hidden");
+                    
+                    setTimeout(() => flashMessages.remove(), 1000);
+                }, 3000);
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+        const toggleBtn = document.getElementById("toggleBtn");
+        const sideNav = document.getElementById("sideNav");
+        const mainContent = document.getElementById("mainContent");
+        const rightArrowPath = "{{ url_for('static', filename='right-arrow.png') }}";
+        const leftArrowPath = "{{ url_for('static', filename='left-arrow.png') }}";
+
+        sideNav.style.left = "-250px";
+        mainContent.style.marginLeft = "0px";
+        toggleBtn.innerHTML = `<img src="${rightArrowPath}" alt="Right Arrow" class="arrow-icon">`;
+
+        toggleBtn.addEventListener("click", function () {
+            const isNavOpen = sideNav.style.left === "0px";
+            sideNav.style.left = isNavOpen ? "-250px" : "0px";
+            mainContent.style.marginLeft = isNavOpen ? "0px" : "250px";
+
+            toggleBtn.innerHTML = isNavOpen
+                ? `<img src="${rightArrowPath}" alt="Right Arrow" class="arrow-icon">`
+                : `<img src="${leftArrowPath}" alt="Left Arrow" class="arrow-icon">`;
+            toggleBtn.style.left = sideNav.style.left === "0px" ? "207px" : "15px";
+        });
+    });
+    </script>    
+
+    {% block content %}{% endblock %}
+</body>
+
+<div id="flash-messages">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} text-center">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+</html>
